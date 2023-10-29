@@ -7,9 +7,15 @@
     },
     "type": "magento2-module",
     "version": "2.0.0",
+    "minimum-stability": "dev",
     "license": [
         "OSL-3.0",
         "AFL-3.0"
+    ],
+    "authors": [
+        {
+            "name": "Hardik Patel"
+        }
     ],
     "support": {
         "source": "https://github.com/hpmagento/mldevelopertest.git"
