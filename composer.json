@@ -1,5 +1,5 @@
 {
-    "name": "ml/module-developertest",
+    "name": "mltest/module-developertest",
     "description": "ML DeveloperTest Extension for allow the admin to block the product from being ordered from one or more countries",
     "require": {
         "php": "~8.1.0||~8.2.0",
