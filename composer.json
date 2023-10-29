@@ -11,6 +11,9 @@
         "OSL-3.0",
         "AFL-3.0"
     ],
+    "support": {
+        "source": "https://github.com/hpmagento/mldevelopertest.git"
+    },
     "autoload": {
         "files": [ "registration.php" ],
         "psr-4": {
