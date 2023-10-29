@@ -1,0 +1,20 @@
+{
+    "name": "ml/module-developertest",
+    "description": "ML DeveloperTest Extension for allow the admin to block the product from being ordered from one or more countries",
+    "require": {
+        "php": "~8.1.0||~8.2.0",
+        "ipinfo/ipinfo": ">=2.2.0"
+    },
+    "type": "magento2-module",
+    "version": "2.0.0",
+    "license": [
+        "OSL-3.0",
+        "AFL-3.0"
+    ],
+    "autoload": {
+        "files": [ "registration.php" ],
+        "psr-4": {
+            "ML\\DeveloperTest\\": ""
+        }
+    }
+}

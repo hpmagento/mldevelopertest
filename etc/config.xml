@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../Store/etc/config.xsd">
+    <default>
+        <ml_block_product>
+            <general>
+                <enable>0</enable>
+                <error_message>I’m sorry, this product cannot be ordered from COUNTRY_NAME</error_message>
+            </general>
+        </ml_block_product>
+    </default>
+</config>
