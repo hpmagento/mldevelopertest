@@ -3,7 +3,7 @@
     "description": "ML DeveloperTest Extension for allow the admin to block the product from being ordered from one or more countries",
     "require": {
         "php": "~8.1.0||~8.2.0",
-        "ipinfo/ipinfo": ">=2.2.0"
+        "ipinfo/ipinfo": "^2.2.0"
     },
     "type": "magento2-module",
     "version": "2.0.0",
