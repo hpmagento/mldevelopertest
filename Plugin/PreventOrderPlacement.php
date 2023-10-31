@@ -2,6 +2,7 @@
 
 namespace ML\DeveloperTest\Plugin;
 
+use Exception;
 use ipinfo\ipinfo\IPinfoException;
 use Magento\Framework\Exception\NoSuchEntityException;
 use Magento\Framework\Message\ManagerInterface;
@@ -57,9 +58,10 @@ class PreventOrderPlacement
      * @param QuoteManagement $subject
      * @param $cartId
      * @param Address|null $billingAddress
-     * @return array|void
-     * @throws IPinfoException
+     * @return array
      * @throws LocalizedException
+     * @throws NoSuchEntityException
+     * @throws Exception
      */
     public function beforePlaceOrder(QuoteManagement $subject, $cartId, Address $billingAddress = null)
     {
@@ -72,16 +74,6 @@ class PreventOrderPlacement
                 if (!empty($getBlockedItems)) {
                     $errorMsg = $this->getErrorMessage($getIpInfo->region, $getBlockedItems);
                     throw new LocalizedException(__($errorMsg));
-                    /*
-                    try {
-                        $errorMsg = $this->getErrorMessage($getIpInfo->region, $getBlockedItems);
-                        throw new \Magento\Framework\Exception\LocalizedException(__($errorMsg));
-                    } catch (\Magento\Framework\Exception\LocalizedException $e) {
-                        $this->messageManager->addErrorMessage($e->getMessage());
-                        $resultRedirect = $this->resultFactory->create(ResultFactory::TYPE_REDIRECT);
-                        $resultRedirect->setPath('checkout/cart'); // Redirect to the cart page
-                        die;
-                    }*/
                 }
             }
         }

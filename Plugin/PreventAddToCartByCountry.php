@@ -2,6 +2,7 @@
 
 namespace ML\DeveloperTest\Plugin;
 
+use Exception;
 use Magento\Checkout\Model\Cart;
 use Magento\Framework\Message\ManagerInterface;
 use ML\DeveloperTest\Helper\Config as HelperConfig;
@@ -46,8 +47,8 @@ class PreventAddToCartByCountry
      * @param Cart $subject
      * @param $productInfo
      * @param $requestInfo
-     * @return array
-     * @throws \ipinfo\ipinfo\IPinfoException
+     * @return array|void
+     * @throws Exception
      */
     public function beforeAddProduct(
         Cart $subject,
@@ -57,19 +58,20 @@ class PreventAddToCartByCountry
     {
         $productInfo->getCustomAttribute('block_product_by_country');
         if ($this->ipInfoDetailsHelper->isEnable()) {
-            $getIpInfo = $this->ipInfoDetailsHelper->getIpInfo();
-            if (!isset($getIpInfo->error)
-                && isset($getIpInfo->country)
-                && !$this->isProductAllowed($productInfo, $getIpInfo->country)
-            ) {
-                try {
+            try {
+                $getIpInfo = $this->ipInfoDetailsHelper->getIpInfo();
+                if (!isset($getIpInfo->error)
+                    && isset($getIpInfo->country)
+                    && !$this->isProductAllowed($productInfo, $getIpInfo->country)
+                ) {
                     $errorMsg = $this->getErrorMessage($getIpInfo->region);
-                    throw new \Exception($errorMsg);
-                } catch (\Exception $e) {
-                    $this->messageManager->addErrorMessage($e->getMessage());
+                    throw new Exception($errorMsg);
                 }
+            } catch (Exception $e) {
+                $this->messageManager->addErrorMessage($e->getMessage());
                 die;
             }
+
         }
         return [$productInfo, $requestInfo];
     }

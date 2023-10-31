@@ -2,47 +2,52 @@
 
 namespace ML\DeveloperTest\Model;
 
+use Exception;
 use ipinfo\ipinfo\Details;
-use ipinfo\ipinfo\IPinfo;
 use ipinfo\ipinfo\IPinfoException;
 use ML\DeveloperTest\Helper\Config as ConfigHelper;
+use Magento\Framework\ObjectManagerInterface;
 
 class IpInfoDetails
 {
     /**
-     * @var IPinfo
-     */
-    protected IPinfo $ipInfoApi;
-    /**
      * @var ConfigHelper
      */
     private ConfigHelper $configHelper;
+    /**
+     * @var ObjectManagerInterface
+     */
+    protected ObjectManagerInterface $objectManager;
 
     /**
-     * @param IPinfo $ipInfoApi
      * @param ConfigHelper $configHelper
+     * @param ObjectManagerInterface $objectManager
      */
     public function __construct(
-        IPinfo       $ipInfoApi,
-        ConfigHelper $configHelper
+        ConfigHelper           $configHelper,
+        ObjectManagerInterface $objectManager
     )
     {
-        $this->ipInfoApi = $ipInfoApi;
         $this->configHelper = $configHelper;
+        $this->objectManager = $objectManager;
     }
 
     /**
      * get current customer IP details
      *
      * @return Details
-     * @throws IPinfoException
+     * @throws Exception
      */
     public function getIpInfo(): Details
     {
-        $token = $this->configHelper->getAccessToken();
-        //$client = $this->ipInfoApi->create($token);
-        $client = new IPinfo($token);
-        return $client->getDetails();
+        try {
+            $token = $this->configHelper->getAccessToken();
+            //$client = new IPinfo($token);
+            $client = $this->objectManager->create('ipinfo\ipinfo\IPinfo', [$token]);
+            return $client->getDetails();
+        } catch (IPinfoException|Exception $e) {
+            throw new Exception($e->getMessage());
+        }
     }
 
     /**
