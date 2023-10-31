@@ -6,4 +6,7 @@
         <plugin name="ml_prevent_add_to_cart_by_country" type="ML\DeveloperTest\Plugin\PreventAddToCartByCountry"
                 sortOrder="1"/>
     </type>
+    <type name="Magento\Quote\Model\QuoteManagement">
+        <plugin name="ml_developertest_prevent_order_placement" type="ML\DeveloperTest\Plugin\PreventOrderPlacement" sortOrder="1"/>
+    </type>
 </config>

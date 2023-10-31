@@ -23,7 +23,7 @@ class IpInfoDetails
      * @param Config $configHelper
      */
     public function __construct(
-        IPinfo $ipInfoApi,
+        IPinfo       $ipInfoApi,
         ConfigHelper $configHelper
     )
     {

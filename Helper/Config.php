@@ -74,9 +74,9 @@ class Config extends AbstractHelper
      */
     public function isEnable(): bool
     {
-        if($this->getModuleStatus()
+        if ($this->getModuleStatus()
             && !empty($this->getAccessToken())
-        ){
+        ) {
             return true;
         }
         return false;
