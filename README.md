@@ -36,3 +36,4 @@ Login to the Magento admin, choose Stores > Settings > Configuration > ML Develo
 </p>
 <h3>Note</h3>
 <p>This extension is tested on magento version 2.4.6-p3</p>
+<p>Review recorded of testing this extension in magento version 2.4.6-p3 : <a target="_blank" href="https://www.awesomescreenshot.com/video/22064580?key=e5a81072ae7a3be4f8255ee257fc3060">Link</a></p>
