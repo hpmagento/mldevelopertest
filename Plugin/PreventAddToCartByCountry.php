@@ -5,22 +5,22 @@ namespace ML\DeveloperTest\Plugin;
 use Magento\Checkout\Model\Cart;
 use Magento\Framework\Message\ManagerInterface;
 use ML\DeveloperTest\Helper\Config as HelperConfig;
-use ML\DeveloperTest\Helper\IpInfoDetails as IpInfoDetailsHelper;
+use ML\DeveloperTest\Model\IpInfoDetails as IpInfoDetailsHelper;
 
 class PreventAddToCartByCountry
 {
     /**
      * @var ManagerInterface
      */
-    protected $messageManager;
+    protected ManagerInterface $messageManager;
     /**
      * @var HelperConfig
      */
-    protected $helperConfig;
+    protected HelperConfig $helperConfig;
     /**
      * @var IpInfoDetailsHelper
      */
-    protected $ipInfoDetailsHelper;
+    protected IpInfoDetailsHelper $ipInfoDetailsHelper;
 
     /**
      * @param ManagerInterface $messageManager

@@ -2,13 +2,14 @@
 
 namespace ML\DeveloperTest\Plugin;
 
+use ipinfo\ipinfo\IPinfoException;
+use Magento\Framework\Exception\NoSuchEntityException;
 use Magento\Framework\Message\ManagerInterface;
 use Magento\Quote\Model\QuoteManagement;
-use Magento\Quote\Model\Quote;
 use Magento\Quote\Model\Quote\Address;
 use Magento\Framework\Controller\ResultFactory;
 use ML\DeveloperTest\Helper\Config as HelperConfig;
-use ML\DeveloperTest\Helper\IpInfoDetails as IpInfoDetailsHelper;
+use ML\DeveloperTest\Model\IpInfoDetails as IpInfoDetailsHelper;
 use Magento\Quote\Model\QuoteRepository;
 use Magento\Framework\Exception\LocalizedException;
 
@@ -17,19 +18,19 @@ class PreventOrderPlacement
     /**
      * @var ManagerInterface
      */
-    protected $messageManager;
+    protected ManagerInterface $messageManager;
     /**
      * @var ResultFactory
      */
-    protected $resultFactory;
+    protected ResultFactory $resultFactory;
     /**
      * @var IpInfoDetailsHelper
      */
-    protected $ipInfoDetailsHelper;
+    protected IpInfoDetailsHelper $ipInfoDetailsHelper;
     /**
      * @var QuoteRepository
      */
-    protected $quoteRepository;
+    protected QuoteRepository $quoteRepository;
 
     /**
      * @param ManagerInterface $messageManager
@@ -57,7 +58,8 @@ class PreventOrderPlacement
      * @param $cartId
      * @param Address|null $billingAddress
      * @return array|void
-     * @throws \ipinfo\ipinfo\IPinfoException
+     * @throws IPinfoException
+     * @throws LocalizedException
      */
     public function beforePlaceOrder(QuoteManagement $subject, $cartId, Address $billingAddress = null)
     {
@@ -93,9 +95,9 @@ class PreventOrderPlacement
      * @param $cartId
      * @param $getCountryByIp
      * @return array
-     * @throws \Magento\Framework\Exception\NoSuchEntityException
+     * @throws NoSuchEntityException
      */
-    protected function getBlockedItems($cartId, $getCountryByIp)
+    protected function getBlockedItems($cartId, $getCountryByIp): array
     {
         $blockedItemName = [];
         if (!empty($cartId) && !empty($getCountryByIp)) {
@@ -117,6 +119,8 @@ class PreventOrderPlacement
     }
 
     /**
+     * Return error message
+     *
      * @param $countryName
      * @param $getBlockedItems
      * @return string

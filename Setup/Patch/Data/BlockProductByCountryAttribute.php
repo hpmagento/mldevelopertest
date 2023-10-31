@@ -3,7 +3,6 @@
 namespace ML\DeveloperTest\Setup\Patch\Data;
 
 use Magento\Framework\Setup\ModuleDataSetupInterface;
-use Magento\Eav\Setup\EavSetup;
 use Magento\Framework\Setup\Patch\DataPatchInterface;
 use Magento\Framework\Setup\Patch\PatchVersionInterface;
 use Magento\Catalog\Model\Product;
@@ -17,29 +16,23 @@ class BlockProductByCountryAttribute implements DataPatchInterface, PatchVersion
     /**
      * @var ModuleDataSetupInterface
      */
-    private $moduleDataSetup;
-    /**
-     * @var EavSetup
-     */
-    private $eavSetup;
+    private ModuleDataSetupInterface $moduleDataSetup;
+
     /**
      * @var CategorySetupFactory
      */
-    private $categorySetupFactory;
+    private CategorySetupFactory $categorySetupFactory;
 
     /**
      * @param ModuleDataSetupInterface $moduleDataSetup
-     * @param EavSetup $eavSetup
      * @param CategorySetupFactory $categorySetupFactory
      */
     public function __construct(
         ModuleDataSetupInterface $moduleDataSetup,
-        EavSetup                 $eavSetup,
         CategorySetupFactory     $categorySetupFactory
     )
     {
         $this->moduleDataSetup = $moduleDataSetup;
-        $this->eavSetup = $eavSetup;
         $this->categorySetupFactory = $categorySetupFactory;
     }
 
@@ -78,7 +71,7 @@ class BlockProductByCountryAttribute implements DataPatchInterface, PatchVersion
      */
     public static function getVersion()
     {
-        return '2.0.2';
+        return '2.0.3';
     }
 
     /**

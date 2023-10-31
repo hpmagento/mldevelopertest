@@ -55,7 +55,7 @@ class Config extends AbstractHelper
     }
 
     /**
-     * Return message
+     * Return access token
      *
      * @return null|string
      */

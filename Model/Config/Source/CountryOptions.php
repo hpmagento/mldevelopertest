@@ -10,7 +10,7 @@ class CountryOptions extends AbstractSource
     /**
      * @var CountryCollectionFactory
      */
-    protected $countryCollectionFactory;
+    protected CountryCollectionFactory $countryCollectionFactory;
 
     /**
      * @param CountryCollectionFactory $countryCollectionFactory
@@ -24,7 +24,7 @@ class CountryOptions extends AbstractSource
      * Return option array
      * @return array
      */
-    public function getAllOptions()
+    public function getAllOptions(): array
     {
         $options = [];
         $countryCollection = $this->countryCollectionFactory->create();
