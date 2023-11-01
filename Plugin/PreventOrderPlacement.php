@@ -2,12 +2,9 @@
 
 namespace ML\DeveloperTest\Plugin;
 
-use Exception;
-use ipinfo\ipinfo\IPinfoException;
 use Magento\Framework\Exception\NoSuchEntityException;
 use Magento\Framework\Message\ManagerInterface;
 use Magento\Quote\Model\QuoteManagement;
-use Magento\Quote\Model\Quote\Address;
 use Magento\Framework\Controller\ResultFactory;
 use ML\DeveloperTest\Helper\Config as HelperConfig;
 use ML\DeveloperTest\Model\IpInfoDetails as IpInfoDetailsHelper;
@@ -57,13 +54,12 @@ class PreventOrderPlacement
      *
      * @param QuoteManagement $subject
      * @param $cartId
-     * @param Address|null $billingAddress
+     * @param $paymentMethod
      * @return array
      * @throws LocalizedException
      * @throws NoSuchEntityException
-     * @throws Exception
      */
-    public function beforePlaceOrder(QuoteManagement $subject, $cartId, Address $billingAddress = null)
+    public function beforePlaceOrder(QuoteManagement $subject, $cartId, $paymentMethod = null)
     {
         if ($this->ipInfoDetailsHelper->isEnable()) {
             $getIpInfo = $this->ipInfoDetailsHelper->getIpInfo();
@@ -78,7 +74,7 @@ class PreventOrderPlacement
             }
         }
 
-        return [$cartId, $billingAddress];
+        return [$cartId, $paymentMethod];
     }
 
     /**

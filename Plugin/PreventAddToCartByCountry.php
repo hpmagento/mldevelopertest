@@ -4,6 +4,7 @@ namespace ML\DeveloperTest\Plugin;
 
 use Exception;
 use Magento\Checkout\Model\Cart;
+use Magento\Framework\Exception\LocalizedException;
 use Magento\Framework\Message\ManagerInterface;
 use ML\DeveloperTest\Helper\Config as HelperConfig;
 use ML\DeveloperTest\Model\IpInfoDetails as IpInfoDetailsHelper;
@@ -47,8 +48,8 @@ class PreventAddToCartByCountry
      * @param Cart $subject
      * @param $productInfo
      * @param $requestInfo
-     * @return array|void
-     * @throws Exception
+     * @return array
+     * @throws LocalizedException
      */
     public function beforeAddProduct(
         Cart $subject,
@@ -56,7 +57,6 @@ class PreventAddToCartByCountry
              $requestInfo = null
     )
     {
-        $productInfo->getCustomAttribute('block_product_by_country');
         if ($this->ipInfoDetailsHelper->isEnable()) {
             try {
                 $getIpInfo = $this->ipInfoDetailsHelper->getIpInfo();
@@ -68,10 +68,8 @@ class PreventAddToCartByCountry
                     throw new Exception($errorMsg);
                 }
             } catch (Exception $e) {
-                $this->messageManager->addErrorMessage($e->getMessage());
-                die;
+                throw new LocalizedException(__($e->getMessage()));
             }
-
         }
         return [$productInfo, $requestInfo];
     }
